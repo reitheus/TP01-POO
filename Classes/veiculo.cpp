@@ -1,5 +1,4 @@
 // Definição de Biblioteca para classe Veículo
-
 #ifndef VEICULO_H
 #define VEICULO_H
 
