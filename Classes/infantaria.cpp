@@ -1,0 +1,15 @@
+#include "Infantaria.h"
+#include <cstdlib>
+
+//Geração dos números aleatórios para os valores dos atributos
+Infantaria::Infantaria() {
+    ataque = rand() % 31 + 30; // Gera um número entre 30 e 60
+    forca = rand() % 31 + 20;  // Gera um número entre 20 e 50
+    velocidade = rand() % 31 + 10; // Gera um número entre 10 e 40
+}
+
+//Cálculo do poder de ataque 
+int Infantaria::getPoderAtaque() {
+    return ((ataque* 5) + (forca * 3) + (velocidade * 2)) / 10;
+}
+
