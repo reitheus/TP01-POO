@@ -1,18 +1,19 @@
 #include "..\Includes/Exercito.h"
 
-Exercito::Exercito(string &nome){
+Exercito::Exercito(string& nomeexercito){
     vitorias = 0;
     derrotas = 0;
     empates = 0;
-    this->nome = nome;
+    nome = nomeexercito;
+    
 }
 
 Exercito::~Exercito(){
 
 }
 
-void Exercito::adicionarUnidades(Unidade* ){
-    unidades.push_back();
+void Exercito::adicionarUnidade(Unidade* divisao){
+    unidades.push_back(divisao);
 }
 
 string Exercito::getResultado(){
@@ -22,7 +23,8 @@ string Exercito::getResultado(){
 }
 
 void Exercito::imprimeResultado(){
-    for(int i=0;i < unidades.size();i++){
 
+    for(int i = 0;i < unidades.size();i++){
+        cout << unidades[i] << endl;
     }
 }

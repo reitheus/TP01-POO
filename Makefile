@@ -1,8 +1,8 @@
 # Variáveis
-CC = gcc
-CFLAGS = -Wall -g -Iinclude
+CC = g++
+CFLAGS = -Wall -g 
 EXEC = programa
-SRC_DIR =  src
+SRC_DIR =  Classes
 
 
 
@@ -17,7 +17,7 @@ $(EXEC): $(SRCS)
 	$(CC) -o $@ $^
 
 # Regra de compilação dos objetos
-$(SRC_DIR)/%.c
+$(SRC_DIR)/%.cpp
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:	

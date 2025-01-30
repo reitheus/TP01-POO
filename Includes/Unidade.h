@@ -6,14 +6,16 @@
 #include <string>
 #include <vector>
 
+
 using namespace std;
 
-class Unidade : public Exercito{
+class Unidade
+{
     
     int poderAtaque, Destruicoes;
 
 public:
-    int getPoderAtaque();
+    virtual int getPoderAtaque();
     int somaDestruicao();
 };
 

@@ -1,6 +1,6 @@
 #include "../Includes/Unidade.h"
 
-int Unidade::getPoderAtaque(){
+virtual int Unidade::getPoderAtaque(){
     return poderAtaque;
 }
 

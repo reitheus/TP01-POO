@@ -13,11 +13,11 @@ class Exercito
 {
     string nome;
     int vitorias,derrotas,empates;
-    vector <Unidade*> unidades;
+    vector<Unidade* > unidades;
 public:
-    Exercito(string &);
+    Exercito(string& );
     ~Exercito( );
-    void adicionarUnidades(Unidade* );
+    void adicionarUnidade(Unidade* );
     string getResultado();
     void imprimeResultado();
 };
