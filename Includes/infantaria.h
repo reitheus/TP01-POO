@@ -7,7 +7,7 @@ using namespace std;
 
 class Infantaria{
     private: // atritubos da classe 
-        int ataque;
+        int poderAtaque;
         int forca;
         int velocidade; 
 
