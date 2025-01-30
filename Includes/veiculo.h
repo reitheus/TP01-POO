@@ -7,9 +7,9 @@ using namespace std;
 
 class Veiculo{
     private: // atritubos da classe 
-        int ataque; 
+        int poderAtaque; 
         int blindagem;
-        int potencia;
+        int potenciadeFogo;
 
     public: // métodos
         Veiculo(); // construtor
