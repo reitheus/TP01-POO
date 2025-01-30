@@ -7,8 +7,8 @@ using namespace std;
 
 class Aeronave{
     private: // atributos da classe
-        int ataque;
-        int manobra;
+        int poderAtaque;
+        int manobrabilidade;
         int alcance;
 
     public: // métodos 
