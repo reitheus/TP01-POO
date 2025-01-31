@@ -1,4 +1,4 @@
-#include "..\Includes/Exercito.h"
+#include "../Includes/Exercito.h"
 
 Exercito::Exercito(string& nomeexercito){
     vitorias = 0;

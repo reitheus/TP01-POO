@@ -1,4 +1,4 @@
-#include "Infantaria.h"
+#include "../Includes/Infantaria.h"
 #include <cstdlib>
 
 //Geração dos números aleatórios para os valores dos atributos

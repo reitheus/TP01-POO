@@ -1,4 +1,4 @@
-#include "../include/Batalha.h"
+#include "../Includes/Batalha.h"
 
 Batalha::Batalha(string nomeA, string nomeB) {
     Exercito *exercA = new Exercito(nomeA);

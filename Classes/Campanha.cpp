@@ -1,5 +1,5 @@
-#include "../include/Campanha.h"
-#include "../include/Batalha.h"
+#include "../Includes/Campanha.h"
+#include "../Includes/Batalha.h"
 
 Campanha::Campanha(nomeA, nomeB ) {
     this->nomeA = nomeA;
