@@ -7,7 +7,8 @@
 #include <charconv>
 //#include <format>
 #include <vector>
-#include "../include/Exercito.h"
+#include "../Includes/Exercito.h"
+#include "../Includes/Date.h"
 
 using namespace std;
 

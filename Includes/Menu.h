@@ -10,13 +10,13 @@
 #include <fstream>
 #include <chrono>
 #include <thread>
+#include "../Includes/Campanha.h"
 
 using namespace std;
 
 class Menu
 {
     Campanha *pCampanha;
-    Menu menu;
 	
 public:
     Menu(  );

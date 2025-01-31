@@ -7,8 +7,8 @@
 #include <charconv>
 //#include <format>
 #include <vector>
-#include "../include/Unidade.h"
-#include "../include/Batalha.h"
+#include "../Includes/Unidade.h"
+#include "../Includes/Batalha.h"
 
 using namespace std;
 
