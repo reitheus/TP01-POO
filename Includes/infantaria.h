@@ -1,19 +1,18 @@
-// Definição de Biblioteca para classe Infantaria
+// Definição de Biblioteca para classe Infantaria 
 
 #ifndef INFANTARIA_H
 #define INFANTARIA_H
 
-using namespace std;
+#include "Unidade.h"
 
-class Infantaria{
-    private: // atritubos da classe 
-        int poderAtaque;
-        int forca;
-        int velocidade; 
+class Infantaria : public Unidade {
+private:
+    int forca;
+    int velocidade;
 
-    public: // métodos
-        Infantaria(); //construtor
-        int getPoderAtaque();
+public:
+    Infantaria();
+    int getPoderAtaque();
 };
 
 #endif
