@@ -6,15 +6,15 @@
 #include <string>
 #include <vector>
 
-
 using namespace std;
 
 class Unidade
 {
-    
+protected: 
     int poderAtaque, Destruicoes;
 
 public:
+    Unidade(int poderAtaque = 0, int Destruicoes = 0); 
     virtual int getPoderAtaque();
     int somaDestruicao();
 };
