@@ -3,11 +3,10 @@
 #ifndef VEICULO_H
 #define VEICULO_H
 
-using namespace std;
+#include "Unidade.h"
 
-class Veiculo{
+class Veiculo : public Unidade{
     private: // atritubos da classe 
-        int poderAtaque; 
         int blindagem;
         int potenciadeFogo;
 
