@@ -3,11 +3,10 @@
 #ifndef AERONAVE_H
 #define AERONAVE_H
 
-using namespace std;
+#include "Unidade.h"
 
-class Aeronave{
+class Aeronave : public Unidade{
     private: // atributos da classe
-        int poderAtaque;
         int manobrabilidade;
         int alcance;
 
