@@ -1,6 +1,11 @@
 #include "../Includes/Unidade.h"
 
-virtual int Unidade::getPoderAtaque(){
+Unidade::Unidade(int poderAtaque, int Destruicoes) {
+    this->poderAtaque = poderAtaque;
+    this->Destruicoes = Destruicoes;
+}
+
+int Unidade::getPoderAtaque(){
     return poderAtaque;
 }
 
