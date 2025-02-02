@@ -1,6 +1,8 @@
 #include "../Includes/Batalha.h"
 
 Batalha::Batalha(string nomeA, string nomeB) {
+    this->nomeA = nomeA;
+    this->nomeB = nomeB;
     exercitoA = new Exercito(nomeA);
     exercitoB = new Exercito(nomeB);
     data = new Date();
@@ -19,6 +21,13 @@ void Batalha::formataData(string dat){
 }
 
 
+void Batalha::imprimeTodasUnidades(){
+    cout << "Unidades do Exercito: " << nomeA << endl  << endl;
+    exercitoA->imprimeUnidades();
+    cout << "\nUnidades do Exercito:" << nomeB << endl << endl;
+    exercitoB->imprimeUnidades();
+}
+
 void Batalha::setVitoriasDoExercitoA(){
     exercitoA->setVitorias();
     exercitoB->setDerrotas();
@@ -35,35 +44,29 @@ void Batalha::setEmpateDosExercitos(){
 
 }
 
-// int Batalha::getVitoriasA(){
-//     exercitoA->getVitorias();
+int Batalha::getVitoriasA(){
+    return exercitoA->getVitorias();
+}
 
-// }
+int Batalha::getVitoriasB(){
+   return exercitoB->getVitorias();
+}
 
-// int Batalha::getVitoriasB(){
-//    exercitoB->getVitorias();
+int Batalha::getDerrotasA(){
+   return exercitoA->getDerrotas();
+}
 
-// }
+int Batalha::getDerrotasB(){
+   return exercitoB->getDerrotas();
+}
 
-// int Batalha::getDerrotasA(){
-//    exercitoA->getDerrotas();
+int Batalha::getEmpatesA(){
+    return exercitoA->getEmpates();
+}
 
-// }
-
-// int Batalha::getDerrotasB(){
-//    exercitoB->getDerrotas();
-
-// }
-
-// int Batalha::getEmpatesA(){
-//     exercitoA->getEmpates();
-    
-
-// }
-
-// int Batalha::getEmpatesB(){
-//     exercitoB->getEmpates();
-// }
+int Batalha::getEmpatesB(){
+    return exercitoB->getEmpates();
+}
 
 
 double Batalha::ataqueExercitoA(string nomeA){

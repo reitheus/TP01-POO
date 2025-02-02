@@ -22,12 +22,17 @@ void Exercito::adicionarUnidade(Unidade* divisao){
 //             ",Empate: " + to_string(empates);
 // }
 
-// void Exercito::imprimeResultado(){
+void Exercito::imprimeUnidades(){
 
-//     for(int i = 0;i < unidades.size();i++){
-//         cout << unidades[i] << endl;
-//     }
-// }
+    // for(int i = 0;i < unidades.size();i++){
+    //     cout << unidades[i] << endl;
+    // }
+
+    for (const auto& p : unidades) {
+        p->imprimiDetalhes();
+    }
+
+}
 
 double Exercito::Attacktotal(){
     double soma = 0;
@@ -41,18 +46,18 @@ double Exercito::Attacktotal(){
 void Exercito::setVitorias(){
     vitorias++;
 }
-// int Exercito::getVitorias(){
-//     return vitorias;
-// }
+int Exercito::getVitorias(){
+    return vitorias;
+}
 void Exercito::setDerrotas(){
     derrotas++;
 }
-// int Exercito::getDerrotas(){
-//     return derrotas;
-// }
+int Exercito::getDerrotas(){
+    return derrotas;
+}
 void Exercito::setEmpates(){
     empates++;
 }
-// int Exercito::getEmpates(){
-//     return empates;
-// }
+int Exercito::getEmpates(){
+    return empates;
+}

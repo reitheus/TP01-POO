@@ -105,7 +105,7 @@ void Menu::campanhaAtual(Campanha* pCampanha){
     std::this_thread::sleep_for(std::chrono::seconds(1));
     limparTela();
     int opcao = -1;//inicializa a opção
-    while(opcao != 4){
+    while(opcao != 5){
         limparTela();
 
         cout << "Simulador de guerras" << endl;
@@ -114,16 +114,16 @@ void Menu::campanhaAtual(Campanha* pCampanha){
         cout << "1 - Simular batalhas" << endl;
         cout << "2 - Gerar tabela de posições" << endl;
         cout << "3 - Mostrar unidade mais destrutiva" << endl;
-        cout << "4 - Voltar ao menu" << endl;
+        cout << "4 - Imprimir todas as unidades dos Exercitos" << endl;
+        cout << "5 - Voltar ao menu" << endl;
         cin >> opcao;
         switch (opcao){
             case 1:
                 limparTela();
                 cout << "Simulando batalha" << endl;
                 
-                
                 pCampanha->simularBatalhas();
-                pCampanha->setNumBatalhas();
+                
                 std::this_thread::sleep_for(std::chrono::seconds(1));
                 limparTela();
                 break;
@@ -131,7 +131,8 @@ void Menu::campanhaAtual(Campanha* pCampanha){
                 limparTela();
                 cout << "Gerando tabela de posições" << endl;
                 std::this_thread::sleep_for(std::chrono::seconds(1));
-                // pCampanha->gerarTabelaDePosicoes();
+                pCampanha->gerarTabelaDePosicoes();
+                //std::this_thread::sleep_for(std::chrono::seconds(3));
                 break;
             case 3:
                 limparTela();
@@ -140,6 +141,12 @@ void Menu::campanhaAtual(Campanha* pCampanha){
                 // pCampanha->mostrarUnidadeMaisDestrutiva();
                 break;
             case 4:
+                limparTela();
+                cout << "Imprimindo todas as unidades dos Exercitos" << endl;
+                pCampanha->imprimeTodasUnidades();
+                std::this_thread::sleep_for(std::chrono::seconds(1));
+                break;
+            case 5:
                 limparTela();
                 cout << "Voltando para o menu" << endl;
                 std::this_thread::sleep_for(std::chrono::seconds(1));

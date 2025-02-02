@@ -12,3 +12,9 @@ Aeronave::Aeronave() {
 int Aeronave::getPoderAtaque() {
     return ((poderAtaque * 5) + (manobrabilidade * 3) + (alcance * 2)) / 10;
 }
+
+// Sobrecarga do operador de saída <<
+void Aeronave::imprimiDetalhes() {
+    cout << "Unidade: Aeronave \n" << "-> Poder de Ataque: " << poderAtaque << "\n-> Manobrabilidade: " << manobrabilidade << "\n-> Alcance: " << alcance << endl;
+}
+

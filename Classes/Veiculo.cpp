@@ -12,3 +12,10 @@ Veiculo::Veiculo() {
 int Veiculo::getPoderAtaque() {
     return ((poderAtaque* 5) + (blindagem * 4) + (potenciadeFogo * 1)) / 10;
 }
+
+
+// Sobrecarga do operador de saída <<
+void Veiculo::imprimiDetalhes() {
+    cout << "\nUnidade: veiculo \n" << "-> Poder de Ataque: " << poderAtaque << "\n-> blindagem: " << blindagem << "\n-> Potencia de Fogo: " << potenciadeFogo << endl;
+    
+}

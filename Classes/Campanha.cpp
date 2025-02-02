@@ -20,11 +20,20 @@ Campanha::~Campanha(){
 
 }
 
+void Campanha::limparTela2() {
+    #ifdef _WIN32
+        system("cls");   // Windows
+    #else
+        system("clear"); // Linux e macOS
+    #endif
+}
+
 void Campanha::simularBatalhas(){
+    
     string data;
     string opcao;
     int poderAtaqueA, poderAtaqueB;
-    cout << numBatalhas<< endl;
+    cout << numBatalhas << endl;
     std::this_thread::sleep_for(std::chrono::seconds(1));
     //Adiciona uma nova batalha ao Vector de batalhas
     batalhas.push_back(new Batalha(nomeA, nomeB));
@@ -34,11 +43,7 @@ void Campanha::simularBatalhas(){
     //cin >> data;
     data = "00/00/0000";
 
-    #ifdef _WIN32
-        system("cls");   // Windows
-    #else
-        system("clear"); // Linux e macOS
-    #endif
+    limparTela2(); 
 
     batalhas[numBatalhas]->formataData(data);
 
@@ -50,17 +55,44 @@ void Campanha::simularBatalhas(){
     
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
+    limparTela2(); 
+
     //confere qual exercito ganhou a batalha e da a vitória, derrota ou empate corretamente
     if(poderAtaqueA > poderAtaqueB){
         cout << "Vitoria do exército:" << nomeA << endl;
         batalhas[numBatalhas]->setVitoriasDoExercitoA();
+        vitoriasA++;
+        derrotasB++;
     }else if (poderAtaqueA < poderAtaqueB){
         cout << "Vitoria do exército:" << nomeB << endl;
         batalhas[numBatalhas]->setVitoriasDoExercitoB();
+        vitoriasB++;
+        derrotasA++;
     }else{
+        empatesA++;
+        empatesB++;
         cout << "Empate entre os exercitos" << endl;
         batalhas[numBatalhas]->setEmpateDosExercitos();
     }
+    numBatalhas++;
+    cout << "Digite qualquer coisa e aperte ENTER para continuar" << endl;
+    cin >> opcao;
+
+}
+
+
+void Campanha::gerarTabelaDePosicoes(){
+    string opcao;
+   
+    cout << "Exercito: " << nomeA << endl;
+    cout << "Vitórias: " << vitoriasA << endl;
+    cout << "Derrotas: " << derrotasA << endl;
+    cout << "Empates:  " << empatesA << endl;
+
+    cout << "Exercito: " << nomeB << endl;
+    cout << "Vitórias: " << vitoriasB << endl;
+    cout << "Derrotas: " << derrotasB << endl;
+    cout << "Empates:  " << empatesB << endl;
 
     cout << "Digite qualquer coisa e aperte ENTER para continuar" << endl;
     cin >> opcao;
@@ -68,32 +100,6 @@ void Campanha::simularBatalhas(){
 }
 
 
-// void Campanha::gerarTabelaDePosicoes(){
-
-//     int i = 0;
-
-//     while(i < batalhas.size()){
-//         vitoriasA += batalhas[i].getVitoriasA();
-//         vitoriasB += batalhas[i].getVitoriasB();
-
-//         derrotasA += batalhas[i].getDerrotasA();
-//         derrotasB += batalhas[i].getDerrotasB();
-
-//         empatesA += batalhas[i].getEmpatesA();
-//         empatesB += batalhas[i].getEmpatesB();
-//     }
-
-//     cout << "Exercito: " << nomeA << endl;
-//     cout << "Vitórias: " << vitoriasA << endl;
-//     cout << "Derrotas: " << derrotasA << endl;
-//     cout << "Empates:  " << empatesA << endl;
-
-//     cout << "Exercito: " << nomeB << endl;
-//     cout << "Vitórias: " << vitoriasB << endl;
-//     cout << "Derrotas: " << derrotasB << endl;
-//     cout << "Empates:  " << empatesB << endl;
-
-// }
 // void Campanha::mostrarUnidadeMaisDestrutiva(){
     
 
@@ -104,6 +110,40 @@ void Campanha::simularBatalhas(){
 //     }
 
 // }
+
+void Campanha::imprimeTodasUnidades(){
+    int opcao = -1;
+    string x;
+    limparTela2(); 
+    if(numBatalhas == 0){
+        cout << "Primeiro Execute uma batalha" << endl;
+    }else if(numBatalhas > 0){
+
+
+        while(opcao < 1 || opcao > numBatalhas){
+
+            limparTela2(); 
+
+            cout << "Escolha a batalha que gostaria de imprimir as unidades" << endl;
+            cout << "Esolha uma batalha até o número " << numBatalhas << endl;
+            cin >> opcao;
+
+            if(opcao < 1 || opcao > numBatalhas){
+                limparTela2();
+                cout << "Número invalido" << endl;
+                std::this_thread::sleep_for(std::chrono::seconds(1));
+            }
+        }
+        limparTela2();
+        batalhas[opcao - 1]->imprimeTodasUnidades();
+    }
+
+    cout << "\nDigite qualquer coisa e aperte ENTER para continuar" << endl;
+    cin >> x;
+
+
+}
+
 
 void Campanha::setNumBatalhas(){
     numBatalhas++;

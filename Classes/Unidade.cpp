@@ -9,6 +9,13 @@ int Unidade::getPoderAtaque(){
     return poderAtaque;
 }
 
+void Unidade::imprimiDetalhes(){
+    cout << "Unidade" << endl;
+
+
+}
+
+
 int Unidade::somaDestruicao(){
     return Destruicoes + 1;
 }
