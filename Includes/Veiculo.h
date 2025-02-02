@@ -13,6 +13,8 @@ class Veiculo : public Unidade{
     public: // métodos
         Veiculo(); // construtor
         int getPoderAtaque();
+        void imprimiDetalhes();
+
 };
 
 #endif

@@ -13,6 +13,7 @@ class Aeronave : public Unidade{
     public: // métodos 
         Aeronave();// construtor 
         int getPoderAtaque();  
+        void imprimiDetalhes() ;
 };
 
 #endif

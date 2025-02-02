@@ -16,6 +16,7 @@ protected:
 public:
     Unidade(int poderAtaque = 0, int Destruicoes = 0); 
     virtual int getPoderAtaque();
+    virtual void imprimiDetalhes();
     int somaDestruicao();
 };
 

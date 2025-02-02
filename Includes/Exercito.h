@@ -21,7 +21,7 @@ public:
     ~Exercito( );
     void adicionarUnidade(Unidade* );
     string getResultado();
-    void imprimeResultado();
+    void imprimeUnidades();
 
     double Attacktotal();
 

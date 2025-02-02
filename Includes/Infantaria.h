@@ -13,6 +13,7 @@ private:
 public:
     Infantaria();
     int getPoderAtaque();
+    void imprimiDetalhes();
 };
 
 #endif

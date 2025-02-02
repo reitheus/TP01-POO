@@ -32,10 +32,11 @@ class Campanha
 public:
     Campanha(string nomeA, string nomeB);
     ~Campanha( );
-    
+    static void limparTela2(); 
     void simularBatalhas();
     void gerarTabelaDePosicoes();
     void mostrarUnidadeMaisDestrutiva();
+    void imprimeTodasUnidades();
     
     void setNumBatalhas();
 

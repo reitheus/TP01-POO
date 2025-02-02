@@ -24,12 +24,15 @@ class Batalha
     Date *data;
     Exercito *exercitoA;
     Exercito *exercitoB;
+    string nomeA, nomeB;
 	int resultadoA, resultadoB;
 public:
-    Batalha(string nomeA, string nomeB);
+    Batalha(string , string );
     ~Batalha( );
 
     void formataData(string );
+
+    void imprimeTodasUnidades();
 
     double ataqueExercitoA(string );
     double ataqueExercitoB(string );
