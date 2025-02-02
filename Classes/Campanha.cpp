@@ -1,7 +1,6 @@
 #include "../Includes/Campanha.h"
-#include "../Includes/Batalha.h"
 
-Campanha::Campanha(nomeA, nomeB ) {
+Campanha::Campanha(string nomeA,string nomeB ) {
     this->nomeA = nomeA;
     this->nomeB = nomeB;
     this->numBatalhas = 0;
@@ -15,22 +14,43 @@ Campanha::Campanha(nomeA, nomeB ) {
 }
 
 Campanha::~Campanha(){
-    
+    for(Batalha* p: batalhas){
+        delete p;
+    }
 
 }
 
 void Campanha::simularBatalhas(){
-    
+    string data;
+    string opcao;
     int poderAtaqueA, poderAtaqueB;
-
+    cout << numBatalhas<< endl;
+    std::this_thread::sleep_for(std::chrono::seconds(1));
     //Adiciona uma nova batalha ao Vector de batalhas
     batalhas.push_back(new Batalha(nomeA, nomeB));
 
-    //calcular o poder de batalha de cada exercito
-    poderAtaqueA = batalhas[numBatalhas]->ataqueExercitoA();
-    poderAtaqueB = batalhas[numBatalhas]->ataqueExercitoB();
+    cout << "Digite a data da batalha" << endl;
+    cout << "Digite no formato DD/MM/AAAA" << endl;
+    //cin >> data;
+    data = "00/00/0000";
 
-    //confere qual exercito ganhou a batalha e da a vitória, derroa ou empate corretamente
+    #ifdef _WIN32
+        system("cls");   // Windows
+    #else
+        system("clear"); // Linux e macOS
+    #endif
+
+    batalhas[numBatalhas]->formataData(data);
+
+    //calcular o poder de batalha de cada exercito
+    poderAtaqueA = batalhas[numBatalhas]->ataqueExercitoA(nomeA);
+    poderAtaqueB = batalhas[numBatalhas]->ataqueExercitoB(nomeB);
+    cout << "poderA" << poderAtaqueA << endl;
+    cout << "poderB" << poderAtaqueB << endl;
+    
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
+    //confere qual exercito ganhou a batalha e da a vitória, derrota ou empate corretamente
     if(poderAtaqueA > poderAtaqueB){
         cout << "Vitoria do exército:" << nomeA << endl;
         batalhas[numBatalhas]->setVitoriasDoExercitoA();
@@ -42,97 +62,101 @@ void Campanha::simularBatalhas(){
         batalhas[numBatalhas]->setEmpateDosExercitos();
     }
 
+    cout << "Digite qualquer coisa e aperte ENTER para continuar" << endl;
+    cin >> opcao;
 
 }
-void Campanha::gerarTabelaDePosicoes(){
 
-    int i = 0;
 
-    while(i < batalhas.size()){
-        vitoriasA += batalhas[i].getVitoriasA();
-        vitoriasB += batalhas[i].getVitoriasB();
+// void Campanha::gerarTabelaDePosicoes(){
 
-        derrotasA += batalhas[i].getDerrotasA();
-        derrotasB += batalhas[i].getDerrotasB();
+//     int i = 0;
 
-        empatesA += batalhas[i].getEmpatesA();
-        empatesB += batalhas[i].getEmpatesB();
-    }
+//     while(i < batalhas.size()){
+//         vitoriasA += batalhas[i].getVitoriasA();
+//         vitoriasB += batalhas[i].getVitoriasB();
 
-    cout << "Exercito: " << nomeA << endl;
-    cout << "Vitórias: " << vitoriasA << endl;
-    cout << "Derrotas: " << derrotasA << endl;
-    cout << "Empates:  " << empatesA << endl;
+//         derrotasA += batalhas[i].getDerrotasA();
+//         derrotasB += batalhas[i].getDerrotasB();
 
-    cout << "Exercito: " << nomeB << endl;
-    cout << "Vitórias: " << vitoriasB << endl;
-    cout << "Derrotas: " << derrotasB << endl;
-    cout << "Empates:  " << empatesB << endl;
+//         empatesA += batalhas[i].getEmpatesA();
+//         empatesB += batalhas[i].getEmpatesB();
+//     }
 
-}
-void Campanha::mostrarUnidadeMaisDestrutiva(){
+//     cout << "Exercito: " << nomeA << endl;
+//     cout << "Vitórias: " << vitoriasA << endl;
+//     cout << "Derrotas: " << derrotasA << endl;
+//     cout << "Empates:  " << empatesA << endl;
+
+//     cout << "Exercito: " << nomeB << endl;
+//     cout << "Vitórias: " << vitoriasB << endl;
+//     cout << "Derrotas: " << derrotasB << endl;
+//     cout << "Empates:  " << empatesB << endl;
+
+// }
+// void Campanha::mostrarUnidadeMaisDestrutiva(){
     
 
-    if(){
+//     if(){
 
 
         
-    }
+//     }
 
-}
+// }
 
-void setNumBatalhas(){
+void Campanha::setNumBatalhas(){
     numBatalhas++;
 }
 
-void Campanha::setVDE(int vitoriasA, int vitoriasB, int derrotasA, int derrotasB, int empatesA, int empatesB){
-    this->vitoriasA = vitoriasA;
-    this->vitoriasB = vitoriasB;
-    this->derrotasA = derrotasA;
-    this->derrotasB = derrotasB;
-    this->empatesA = empatesA;
-    this->empatesB = empatesB;
+// void Campanha::setVDE(int vitoriasA, int vitoriasB, int derrotasA, int derrotasB, int empatesA, int empatesB){
+//     this->vitoriasA = vitoriasA;
+//     this->vitoriasB = vitoriasB;
+//     this->derrotasA = derrotasA;
+//     this->derrotasB = derrotasB;
+//     this->empatesA = empatesA;
+//     this->empatesB = empatesB;
 
-}
+// }
 
-string Campanha::getNomeA(){
+// string Campanha::getNomeA(){
 
-    return this->nomeA;
+//     return this->nomeA;
 
-}
-string Campanha::getNomeB(){
+// }
+// string Campanha::getNomeB(){
 
-    return this->nomeB;
+//     return this->nomeB;
 
-}
+// }
 
-int Batalha::getVitoriasA(){
-    this->vitoriasA;
+// int Campanha::getVitoriasA(){
+//     this->vitoriasA;
 
-}
+// }
 
-int Batalha::getVitoriasB(){
-   this->vitoriasB;
+// int Campanha::getVitoriasB(){
+//    this->vitoriasB;
 
-}
+// }
 
-int Batalha::getDerrotasA(){
-   this->derrotasA;
+// int Campanha::getDerrotasA(){
+//    this->derrotasA;
 
-}
+// }
 
-int Batalha::getDerrotasB(){
-   this->derrotasB;
+// int Campanha::getDerrotasB(){
+//    this->derrotasB;
 
-}
+// }
 
-int Batalha::getEmpatesA(){
-    this->empatesA;
+// int Campanha::getEmpatesA(){
+//     this->empatesA;
     
 
-}
+// }
 
-int Batalha::getEmpatesB(){
-    this->empatesB;
-}
+// int Campanha::getEmpatesB(){
+//     this->empatesB;
+// }
 
