@@ -5,7 +5,9 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "Unidade.h"
+#include <chrono>
+#include <thread>
+#include "../Includes/Unidade.h"
 
 using namespace std;
 
@@ -15,11 +17,23 @@ class Exercito
     int vitorias,derrotas,empates;
     vector<Unidade* > unidades;
 public:
-    Exercito(string& );
+    Exercito(string );
     ~Exercito( );
     void adicionarUnidade(Unidade* );
     string getResultado();
     void imprimeResultado();
+
+    double Attacktotal();
+
+    void setVitorias();
+    int getVitorias();
+
+    void setDerrotas();
+    int getDerrotas();
+
+    void setEmpates();
+    int getEmpates();
+    
 };
 
 #endif//Exercito.h

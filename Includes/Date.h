@@ -4,6 +4,8 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <chrono>
+#include <thread>
 
 using namespace std;
 
@@ -12,7 +14,9 @@ class Date{
     int mes;
     int ano;
 public:
-    void formartDate(string );
+    Date();
+    ~Date();
+    void formatDate(string );
 };
 
 

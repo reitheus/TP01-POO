@@ -5,16 +5,23 @@
 #include <string>
 #include <iostream>
 #include <charconv>
+#include <chrono>
+#include <thread>
 //#include <format>
 #include <vector>
 #include "../Includes/Exercito.h"
 #include "../Includes/Date.h"
+#include "../Includes/Unidade.h"
+#include "../Includes/Aeronave.h"
+#include "../Includes/Infantaria.h"
+#include "../Includes/Veiculo.h"
+
 
 using namespace std;
 
 class Batalha
 {
-    Date data;
+    Date *data;
     Exercito *exercitoA;
     Exercito *exercitoB;
 	int resultadoA, resultadoB;
@@ -22,8 +29,10 @@ public:
     Batalha(string nomeA, string nomeB);
     ~Batalha( );
 
-    void ataqueExercitoA(string nomeA);
-    void ataqueExercitoB(string nomeB);
+    void formataData(string );
+
+    double ataqueExercitoA(string );
+    double ataqueExercitoB(string );
     string getResultado(string nomeA, string nomeB);
 
     void setVitoriasDoExercitoA();

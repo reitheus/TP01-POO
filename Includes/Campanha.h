@@ -5,9 +5,12 @@
 #include <string>
 #include <iostream>
 #include <charconv>
+#include <chrono>
+#include <thread>
 //#include <format>
 #include <vector>
-#include "../Includes/Unidade.h"
+// #include "../Includes/Unidade.h"
+#include "../Includes/Exercito.h"
 #include "../Includes/Batalha.h"
 
 using namespace std;
@@ -16,8 +19,9 @@ class Campanha
 {
     vector <Batalha*> batalhas;
     string nomeA, nomeB;
-    Unidade* unidadeMaisDestrutivaA;
-    Unidade* unidadeMaisDestrutivaB;
+    // Unidade* unidadeMaisDestrutivaA;
+    // Unidade* unidadeMaisDestrutivaB;
+    
 
     int vitoriasA , vitoriasB ;
     int derrotasA , derrotasB ;
@@ -33,8 +37,9 @@ public:
     void gerarTabelaDePosicoes();
     void mostrarUnidadeMaisDestrutiva();
     
+    void setNumBatalhas();
 
-    void setVDE();
+    void setVDE(int, int, int, int, int, int);
 
     string getNomeA();
     string getNomeB();
