@@ -6,11 +6,13 @@
 #include <iostream>
 #include <charconv>
 //#include <format>
+#include <ctime>
 #include <vector>
 #include <locale>
 #include <fstream>
 #include <chrono>
 #include <thread>
+#include <cstdlib>
 #include "../Includes/Campanha.h"
 
 using namespace std;

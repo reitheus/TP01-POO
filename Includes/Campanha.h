@@ -8,6 +8,8 @@
 #include <chrono>
 #include <thread>
 #include <locale>
+#include <cstdlib>
+#include <ctime>
 //#include <format>
 #include <vector>
 // #include "../Includes/Unidade.h"

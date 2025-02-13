@@ -36,7 +36,7 @@ public:
 
     double ataqueExercitoA( );
     double ataqueExercitoB( );
-    string getResultado(string nomeA, string nomeB);
+    string getResultado();
 
     void setVitoriasDoExercitoA();
     void setVitoriasDoExercitoB();
