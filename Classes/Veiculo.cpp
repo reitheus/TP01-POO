@@ -21,6 +21,6 @@ int Veiculo::getPoderAtaque() {
 
 // Sobrecarga do operador de saída <<
 void Veiculo::imprimiDetalhes() {
-    cout << "\nUnidade: veiculo \n" << "-> Poder de Ataque: " << poderAtaque << "\n-> blindagem: " << blindagem << "\n-> Potencia de Fogo: " << potenciadeFogo << endl;
-    cout << "Destruições: " << destruicoes << endl;
+    cout << "Unidade: veiculo \n" << "-> Poder de Ataque: " << poderAtaque << "\n-> blindagem: " << blindagem << "\n-> Potencia de Fogo: " << potenciadeFogo << endl;
+    cout << "-> Destruições: " << destruicoes << endl;
 }

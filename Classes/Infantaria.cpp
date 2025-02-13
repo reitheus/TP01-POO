@@ -21,7 +21,7 @@ int Infantaria::getPoderAtaque() {
 // Sobrecarga do operador de saída <<
 void Infantaria::imprimiDetalhes() {
     cout << "Unidade: Infantaria \n" << "-> Poder de Ataque: " << poderAtaque << "\n-> Força: " << forca << "\n-> Velocidade: " << velocidade << endl;
-    cout << "Destruições: " << destruicoes << endl;
+    cout << "-> Destruições: " << destruicoes << endl;
 }
 
 

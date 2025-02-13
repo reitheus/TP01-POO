@@ -90,6 +90,7 @@ double Batalha::ataqueExercitoA(){
     exercitoA->setDestruicoes(quantidadeDestruicoes);
 
     somaDePoder = exercitoA->Attacktotal();
+    resultadoA = somaDePoder;
     return somaDePoder;
 }
 double Batalha::ataqueExercitoB(){
@@ -115,16 +116,16 @@ double Batalha::ataqueExercitoB(){
     exercitoB->setDestruicoes(quantidadeDestruicoes);
 
     somaDePoder = exercitoB->Attacktotal();
+    resultadoB = somaDePoder;
     return somaDePoder;
 }
 
-// string Batalha::getResultado(){
-//     int poderTotalA, poderTotalB;
-//     string placar;
-//     poderTotalA = exercitoA->Attacktotal();
-//     poderTotalB = exercitoB->Attacktotal();
-//     placar = nomeA + " " + poderTotalA + " x " + poderTotalB + " " + nomeB;
-//     //cout << nomeA << vitoriasA << "x" << vitoriasB << nomeB << endl;
-//     cout << placar << endl;
-//     return placar;
-// }
+string Batalha::getResultado(){
+    nomeA = exercitoA->getNome();
+    nomeB = exercitoB->getNome();
+    string placar;
+    placar = nomeA + " " + to_string(resultadoA) + " X " + to_string(resultadoB) + " " + nomeB;
+    //cout << nomeA << vitoriasA << "x" << vitoriasB << nomeB << endl;
+    //cout << placar << endl;
+    return placar;
+}

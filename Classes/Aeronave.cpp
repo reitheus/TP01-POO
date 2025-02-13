@@ -21,6 +21,6 @@ int Aeronave::getPoderAtaque() {
 // Sobrecarga do operador de saída <<
 void Aeronave::imprimiDetalhes() {
     cout << "Unidade: Aeronave \n" << "-> Poder de Ataque: " << poderAtaque << "\n-> Manobrabilidade: " << manobrabilidade << "\n-> Alcance: " << alcance << endl;
-    cout << "Destruições: " << destruicoes << endl;
+    cout << "-> Destruições: " << destruicoes << endl;
 }
 

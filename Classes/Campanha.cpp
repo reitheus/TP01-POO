@@ -31,14 +31,16 @@ vector <Exercito*> Campanha::getExercitos(){
 
 void Campanha::simularBatalhas(){
     setlocale(LC_ALL, "");
+    srand(time(0));
+    int ano, dia, mes;
+    string diaS, mesS;
     string nomeA, nomeB;
     string data;
     string opcao;
     Exercito* exercitoA;
     Exercito* exercitoB;
     int poderAtaqueA, poderAtaqueB;
-
-    cout << numBatalhas + 1 << endl;
+    ano = rand() % 125 + 1900;
     std::this_thread::sleep_for(std::chrono::seconds(1));
     //Adiciona uma nova batalha ao Vector de batalhas
 
@@ -46,15 +48,25 @@ void Campanha::simularBatalhas(){
     //Laços que controla as partidas entre os exercitos
     for(long unsigned int i = 0; i < exercitos.size(); i++){//Laço que controla o exercito A
         for(long unsigned int j = 0; j < exercitos.size(); j++){//Laço que controla o exercito B
+            ano++;
             if(exercitos[i] != exercitos[j]){//Verifica se os exercitos são diferentes
-                
-                //Inicia a batalha e pedi a data que deseja inserir
-                cout<< "Batalha número: " << numBatalhas + 1 << endl;
-                cout << "Digite a data da batalha ⏳" << endl;
-                cout << "Digite no formato DD/MM/AAAA" << endl;
-                cin >> data;
-                //data = "00/00/0000";
-                
+                //Gera datas aleatorias para a batalhas
+                dia = rand() % 30 + 1;
+                mes = rand() % 11 + 1;
+                if(dia < 10){
+                    diaS = "0" + to_string(dia);
+                }else{
+                    diaS = to_string(dia);
+                }
+                if(mes < 10){
+                    mesS = "0" + to_string(mes);
+                }else{
+                    mesS = to_string(mes);
+                }
+                data = diaS + "/" + mesS + "/" + to_string(ano);
+                cout << "==============================================" << endl;
+                cout << "Batalha número: " << numBatalhas + 1 << endl;
+                cout << "Data da batalha ⏳: " << data << endl; 
                 //busca os exercitos que vão batalhar no momento
                 exercitoA = exercitos[i];
                 exercitoB = exercitos[j];
@@ -67,8 +79,7 @@ void Campanha::simularBatalhas(){
                 poderAtaqueA = batalhas[numBatalhas]->ataqueExercitoA();
                 poderAtaqueB = batalhas[numBatalhas]->ataqueExercitoB();
 
-                cout << nomeA << " " << poderAtaqueA << " X " << poderAtaqueB << " "  << nomeB << endl;
-
+                cout << batalhas[numBatalhas]->getResultado() << endl;
                 //confere qual exercito ganhou a batalha e da a vitória, derrota ou empate corretamente
                 if(poderAtaqueA > poderAtaqueB){
                     cout << "Vitoria do exército:" << nomeA << endl;
@@ -82,16 +93,15 @@ void Campanha::simularBatalhas(){
                     cout << "Empate entre os exercitos" << endl;
                     batalhas[numBatalhas]->setEmpateDosExercitos();
                 }
-                cout << "Digite qualquer coisa e aperte ENTER para continuar" << endl;
-                cin >> opcao;
-                //std::this_thread::sleep_for(std::chrono::milliseconds(2200));
-                limparTela2();
                 numBatalhas++;
                 
             } 
             
         }
     }
+    cout << "==============================================" << endl;
+    cout << "Digite qualquer coisa e aperte ENTER para continuar" << endl;
+    cin >> opcao;
 
 }
 
@@ -131,6 +141,8 @@ void Campanha::gerarTabelaDePosicoes(bool existe){
         if (!trocado) break;
     }
 
+    cout << "==============================================" << endl;
+
     cout << "\n────────────────█████████───────────────" ;
     cout << "\n──────────────█████████████─────────────"  ;
     cout << "\n───────────███████████████████──────────"  ;
@@ -159,11 +171,14 @@ void Campanha::gerarTabelaDePosicoes(bool existe){
     cout << "\n────────────────█████████───────────────"  ;
     cout << "\n──────────────█████████████─────────────"  ;
 
+    cout << "\n==============================================" << endl;
+
     cout << "\n\nTabela de posições dos Exercitos:" << endl;
 
     for(long unsigned int k = 0; k < exercOrd.size(); k++){
-
+        cout << "==============================================" << endl;
         if(k == 0){
+            
             
             cout << k+1 <<"º Lugar exercito: 🏆 " << exercOrd[k]->getNome() << " 🏆" << endl;
             cout << "Vitorias: " << exercOrd[k]->getVitorias() << endl;
@@ -178,7 +193,7 @@ void Campanha::gerarTabelaDePosicoes(bool existe){
             cout << "Empates:  " << exercOrd[k]->getEmpates() << endl;
         }
     }
-
+    cout << "==============================================" << endl;
 
     cout << "Digite qualquer coisa e aperte ENTER para continuar" << endl;
     cin >> opcao;
@@ -207,7 +222,7 @@ void Campanha::mostrarUnidadeMaisDestrutiva(){
     }
     nome = exercitos[exercitoDono]->getNome();
     limparTela2();
-    cout << "A unidade mais Destrutiva é do exercito: 💀 " << nome<< " 💀" << endl;
+    cout << "A unidade mais Destrutiva é do exercito: 💀 " << nome << " 💀" << endl;
     unidadeMaisDestrutiva->imprimiDetalhes();
     
     cout << "Digite qualquer coisa e aperte ENTER para continuar" << endl;
@@ -237,21 +252,21 @@ void Campanha::imprimeTodasUnidades(){
             cin >> opcao;
 
             if(opcao <= 0 || opcao > exercitos.size()){
-                std::this_thread::sleep_for(std::chrono::milliseconds(2200));
                 limparTela2();
-
                 cout << "Valor inválido!!!" << endl;
-
+                std::this_thread::sleep_for(std::chrono::milliseconds(1600));
             }
         }
         opcao--;
-        
+        limparTela2(); 
         nome = exercitos[opcao]->getNome();
         unidades = exercitos[opcao]->getUnidades();
         cout << "Unidades do Exercito :" << nome << endl;
         for(Unidade* p: unidades){
+            cout << "============================================" << endl;
             p->imprimiDetalhes();
         }
+        cout << "============================================" << endl;
 
     }
 
