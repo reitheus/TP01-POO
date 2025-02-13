@@ -6,7 +6,6 @@ Menu::Menu() {
 
 Menu::~Menu(){
 
-
 }
 
 void Menu::limparTela() {
@@ -17,47 +16,47 @@ void Menu::limparTela() {
     #endif
 }
 
-// void Menu::salvarCampanha(Campanha* pCampanha){
-//     int opcao = 0;
-//     string nomeDaCampanha;
-//     cout << "-- AVISO!!! --" << endl;
-//     cout << "Jogos não salvos serão perdidos ao retornar para o menu" << endl;
-   
+void Menu::salvarCampanha(Campanha* pCampanha){
+    int opcao = 0;
+    string nomeDaCampanha;
+    vector <Exercito*> exercitos;
+    cout << "-- AVISO!!! --" << endl;
+    cout << "Jogos não salvos serão perdidos ao retornar para o menu" << endl;
+    exercitos = pCampanha->getExercitos();
+    while(opcao != 1 && opcao != 2){
+        cout << "Deseja salvar campanha atual?" << endl;
+        //pCampanha->gerarTabelaDePosicoes();
+        cout << "1 - Salvar campanha" << endl;
+        cout << "2 - Não salvar campanha" << endl;
+        cin >> opcao;
 
-//     while(opcao != 1 || opcao != 2){
-//         cout << "Deseja salvar campanha atual?" << endl;
-//         pCampanha->gerarTabelaDePosicoes();
-//         cout << "1 - Salvar campanha" << endl;
-//         cout << "2 - Não salvar campanha" << endl;
-//         cin >> opcao;
+        if(opcao == 1){
+            cout << "O jogo será salvo"<< endl;
+            cout << "Deseja salvar a campanha com qual nome?"<< endl;
+            cout << "OBS: NÃO inclua a extensão " << endl;
+            cin >> nomeDaCampanha;
+            nomeDaCampanha = nomeDaCampanha + ".txt";
+            ofstream arqv;
+            arqv.open(nomeDaCampanha, ios::out);
 
-//         if(opcao == 1){
-//             cout << "O jogo será salvo"<< endl;
-//             cout << "Deseja salvar a campanha com qual nome?"<< endl;
-//             cout << "OBS: NÃO inclua a extensão " << endl;
-//             cin >> nomeDaCampanha;
-//             nomeDaCampanha = nomeDaCampanha + ".txt";
-//             ofstream arqv;
-//             arqv.open(nomeDaCampanha, ios::out);
-//             arqv << pCampanha->getNomeA() << endl;
-//             arqv << pCampanha->getVitoriasA() << endl;
-//             arqv << pCampanha->getDerrotasA() << endl;
-//             arqv << pCampanha->getEmpatesA() << endl;
+            arqv << exercitos.size() << endl;
 
-//             arqv << pCampanha->getNomeB() << endl;
-//             arqv << pCampanha->getVitoriasB() << endl;
-//             arqv << pCampanha->getDerrotasB() << endl;
-//             arqv << pCampanha->getEmpatesB() << endl;
+            for(long unsigned int k = 0; k < exercitos.size(); k++){
+                arqv << exercitos[k]->getNome() << endl;
+                arqv << exercitos[k]->getVitorias() << endl;
+                arqv << exercitos[k]->getDerrotas() << endl;
+                arqv << exercitos[k]->getEmpates() << endl;
+            }
 
-//             arqv.close();
+            arqv.close();
 
-//         }else if(opcao == 2){
-//             cout << "O jogo não será salvo"<< endl;
-//         }else{
-//             cout << "Comando inválido"<< endl;
-//         }
-//     }
-// }
+        }else if(opcao == 2){
+            cout << "O jogo não será salvo"<< endl;
+        }else{
+            cout << "Comando inválido"<< endl;
+        }
+    }
+}
 
 // Campanha* Menu::carregarCampanha(){
 //     string nomeCampanha;
@@ -92,18 +91,33 @@ void Menu::limparTela() {
 //     }else{
 //         cout << "Erro ao abrir arquivo";
 //     }
-//     pCampanha = new Campanha(nomeA, nomeB);
-//     pCampanha->setVDE(vA, vB, dA, dB, eA, eB);
+//     pCampanha = new Campanha();
+//     //pCampanha->setVDE(vA, vB, dA, dB, eA, eB);
 //     return pCampanha;
 // }
 
 void Menu::campanhaAtual(Campanha* pCampanha){
     //std::this_thread::sleep_for(std::chrono::seconds(1));
     limparTela();
+    string nome;
     
     cout << "Campanha iniciada" << endl;
     std::this_thread::sleep_for(std::chrono::seconds(1));
     limparTela();
+    int quantExercitos = -1;
+    while(quantExercitos <= 1 || quantExercitos > 10){
+        cout << "Digite a quantidade de Exercitos participantes" << endl;
+        cout << "É obrigatorio no minimo 2 exercitos" << endl;
+        cin >> quantExercitos;
+    }
+    int i = 0;
+    while(i < quantExercitos){
+        cout << "Digite o nome do Exercito " << i + 1 << endl;
+        cin >> nome;
+        pCampanha->newExercito(nome, 0, 0, 0, i);
+        i++;
+    }
+
     int opcao = -1;//inicializa a opção
     while(opcao != 5){
         limparTela();
@@ -138,7 +152,7 @@ void Menu::campanhaAtual(Campanha* pCampanha){
                 limparTela();
                 cout << "Mostrando unidade mais destruitiva" << endl;
                 std::this_thread::sleep_for(std::chrono::seconds(1));
-                // pCampanha->mostrarUnidadeMaisDestrutiva();
+                pCampanha->mostrarUnidadeMaisDestrutiva();
                 break;
             case 4:
                 limparTela();
@@ -167,7 +181,6 @@ void Menu::telaMenu(){
     int opcao = -1;
     string nomeA, nomeB;
 
-
     limparTela();
     while(opcao != 3){
         limparTela();
@@ -180,20 +193,16 @@ void Menu::telaMenu(){
         cin >> opcao;
         switch (opcao){
             case 1:
-
                 limparTela();
                 cout << "Iniciando nova campanha ... Bom jogo ..." << endl;
                 std::this_thread::sleep_for(std::chrono::seconds(2));
                 limparTela();
-                cout << "Digite o nome do Exército A" << endl;
-                cin >> nomeA;
-                cout << "Digite o nome do Exército B" << endl;
-                cin >> nomeB;
                 
-                pCampanha = new Campanha(nomeA, nomeB);
+                pCampanha = new Campanha();
 
                 menu.campanhaAtual(pCampanha);
-                //menu.salvarCampanha(Campanha*);
+                std::this_thread::sleep_for(std::chrono::seconds(1));
+                menu.salvarCampanha(pCampanha);
 
                 delete pCampanha;
 
@@ -205,8 +214,8 @@ void Menu::telaMenu(){
                 //pCampanha = carregarCampanha();
 
                 //menu.campanhaAtual(pCampanha);
-                //menu.salvarCampanha(Campanha);
-                //delete pCampanha;
+                //menu.salvarCampanha(pCampanha);
+                delete pCampanha;
                 break;
             case 3:
                 limparTela();

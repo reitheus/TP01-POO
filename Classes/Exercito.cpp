@@ -1,14 +1,19 @@
 #include "../Includes/Exercito.h"
 
-Exercito::Exercito(string nomeexercito){
-    vitorias = 0;
-    derrotas = 0;
-    empates = 0;
-    nome = nomeexercito;
+Exercito::Exercito(string nomeExercito, int vitorias, int derrotas, int empates){
+    this->vitorias = vitorias;
+    this->derrotas = derrotas;
+    this->empates = empates;
+    nome = nomeExercito;
     
 }
 
 Exercito::~Exercito(){
+
+    //desaloca as Unidades
+    for(Unidade* p: unidades){
+        delete p;
+    }
 
 }
 
@@ -42,6 +47,23 @@ double Exercito::Attacktotal(){
     return soma;
 }
 
+string Exercito::getNome()const{
+
+    return nome;
+}
+
+
+vector<Unidade* > Exercito::getUnidades()const{
+
+    return unidades;
+}
+
+void Exercito::setDestruicoes(int destruicoes){
+
+    this->destruicoes = destruicoes;
+
+
+}
 
 void Exercito::setVitorias(){
     vitorias++;

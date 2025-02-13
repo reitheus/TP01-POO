@@ -10,6 +10,11 @@ Veiculo::Veiculo() {
 
 //Cálculo do poder de ataque 
 int Veiculo::getPoderAtaque() {
+
+    poderAtaque= rand() % 41 + 40;// Gera um número entre 40 e 80
+    blindagem = rand() % 41 + 30;// Gera um número entre 30 e 70
+    potenciadeFogo = rand() % 31 + 20;// Gera um número entre 20 e 50
+
     return ((poderAtaque* 5) + (blindagem * 4) + (potenciadeFogo * 1)) / 10;
 }
 
@@ -17,5 +22,5 @@ int Veiculo::getPoderAtaque() {
 // Sobrecarga do operador de saída <<
 void Veiculo::imprimiDetalhes() {
     cout << "\nUnidade: veiculo \n" << "-> Poder de Ataque: " << poderAtaque << "\n-> blindagem: " << blindagem << "\n-> Potencia de Fogo: " << potenciadeFogo << endl;
-    
+    cout << "Destruições: " << destruicoes << endl;
 }

@@ -1,23 +1,20 @@
 #include "../Includes/Campanha.h"
 
-Campanha::Campanha(string nomeA,string nomeB ) {
-    this->nomeA = nomeA;
-    this->nomeB = nomeB;
-    this->numBatalhas = 0;
-    this->vitoriasA = 0;
-    this->vitoriasB = 0;
-    this->derrotasA = 0;
-    this->derrotasB = 0;
-    this->empatesA = 0;
-    this->empatesB = 0;
+Campanha::Campanha() {
     
+    this->numBatalhas = 0;
 }
 
 Campanha::~Campanha(){
+    //desaloca as batalhas
     for(Batalha* p: batalhas){
         delete p;
     }
 
+    //desalocas os exercitos
+    for(Exercito* q: exercitos){
+        delete q;
+    }
 }
 
 void Campanha::limparTela2() {
@@ -28,71 +25,142 @@ void Campanha::limparTela2() {
     #endif
 }
 
-void Campanha::simularBatalhas(){
-    
-    string data;
-    string opcao;
-    int poderAtaqueA, poderAtaqueB;
-    cout << numBatalhas << endl;
-    std::this_thread::sleep_for(std::chrono::seconds(1));
-    //Adiciona uma nova batalha ao Vector de batalhas
-    batalhas.push_back(new Batalha(nomeA, nomeB));
-
-    cout << "Digite a data da batalha" << endl;
-    cout << "Digite no formato DD/MM/AAAA" << endl;
-    //cin >> data;
-    data = "00/00/0000";
-
-    limparTela2(); 
-
-    batalhas[numBatalhas]->formataData(data);
-
-    //calcular o poder de batalha de cada exercito
-    poderAtaqueA = batalhas[numBatalhas]->ataqueExercitoA(nomeA);
-    poderAtaqueB = batalhas[numBatalhas]->ataqueExercitoB(nomeB);
-    cout << "poderA" << poderAtaqueA << endl;
-    cout << "poderB" << poderAtaqueB << endl;
-    
-    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-
-    limparTela2(); 
-
-    //confere qual exercito ganhou a batalha e da a vitória, derrota ou empate corretamente
-    if(poderAtaqueA > poderAtaqueB){
-        cout << "Vitoria do exército:" << nomeA << endl;
-        batalhas[numBatalhas]->setVitoriasDoExercitoA();
-        vitoriasA++;
-        derrotasB++;
-    }else if (poderAtaqueA < poderAtaqueB){
-        cout << "Vitoria do exército:" << nomeB << endl;
-        batalhas[numBatalhas]->setVitoriasDoExercitoB();
-        vitoriasB++;
-        derrotasA++;
-    }else{
-        empatesA++;
-        empatesB++;
-        cout << "Empate entre os exercitos" << endl;
-        batalhas[numBatalhas]->setEmpateDosExercitos();
-    }
-    numBatalhas++;
-    cout << "Digite qualquer coisa e aperte ENTER para continuar" << endl;
-    cin >> opcao;
-
+vector <Exercito*> Campanha::getExercitos(){
+    return exercitos;
 }
 
+void Campanha::simularBatalhas(){
+    string nomeA, nomeB;
+    string data;
+    string opcao;
+    Exercito* exercitoA;
+    Exercito* exercitoB;
+    int poderAtaqueA, poderAtaqueB;
+
+    cout << numBatalhas + 1 << endl;
+    std::this_thread::sleep_for(std::chrono::seconds(2));
+    //Adiciona uma nova batalha ao Vector de batalhas
+
+    limparTela2();
+    //Laços que controla as partidas entre os exercitos
+    for(long unsigned int i = 0; i < exercitos.size(); i++){//Laço que controla o exercito A
+        for(long unsigned int j = 0; j < exercitos.size(); j++){//Laço que controla o exercito B
+            if(exercitos[i] != exercitos[j]){//Verifica se os exercitos são diferentes
+                
+                //Inicia a batalha e pedi a data que deseja inserir
+                cout<< "Batalha número: " << numBatalhas + 1 << endl;
+                cout << "Digite a data da batalha" << endl;
+                cout << "Digite no formato DD/MM/AAAA" << endl;
+                //cin >> data;
+                data = "00/00/0000";
+                
+                //busca os exercitos que vão batalhar no momento
+                exercitoA = exercitos[i];
+                exercitoB = exercitos[j];
+                nomeA = exercitoA->getNome();
+                nomeB = exercitoB->getNome();
+                batalhas.push_back(new Batalha(exercitoA, exercitoB));//cria uma nova batalha
+                batalhas[numBatalhas]->formataData(data);
+                
+                //executa o ataque dos exercitos
+                poderAtaqueA = batalhas[numBatalhas]->ataqueExercitoA();
+                poderAtaqueB = batalhas[numBatalhas]->ataqueExercitoB();
+
+                cout << nomeA << " " << poderAtaqueA << " X " << poderAtaqueB << " "  << nomeB << endl;
+
+                //confere qual exercito ganhou a batalha e da a vitória, derrota ou empate corretamente
+                if(poderAtaqueA > poderAtaqueB){
+                    cout << "Vitoria do exército:" << nomeA << endl;
+                    batalhas[numBatalhas]->setVitoriasDoExercitoA();
+
+                }else if (poderAtaqueA < poderAtaqueB){
+                    cout << "Vitoria do exército:" << nomeB << endl;
+                    batalhas[numBatalhas]->setVitoriasDoExercitoB();
+
+                }else{
+                    cout << "Empate entre os exercitos" << endl;
+                    batalhas[numBatalhas]->setEmpateDosExercitos();
+                }
+                cout << "Digite qualquer coisa e aperte ENTER para continuar" << endl;
+                cin >> opcao;
+                //std::this_thread::sleep_for(std::chrono::milliseconds(2200));
+                limparTela2();
+                numBatalhas++;
+                
+            } 
+            
+        }
+    }
+
+}
 
 void Campanha::gerarTabelaDePosicoes(){
     string opcao;
-   
-    cout << "Exercito: " << nomeA << endl;
-    cout << "Vitórias: " << vitoriasA << endl;
-    cout << "Derrotas: " << derrotasA << endl;
-    cout << "Empates:  " << empatesA << endl;
+    Exercito *exercitoTemp;
+    vector <Exercito*> exercOrd(exercitos.size());//Exercito Ordenado
+    copy(exercitos.begin(), exercitos.end(), exercOrd.begin());
 
-    cout << "Exercito: " << nomeB << endl;
-    cout << "Vitórias: " << vitoriasB << endl;
-    cout << "Derrotas: " << derrotasB << endl;
-    cout << "Empates:  " << empatesB << endl;
+    bool trocado;
+
+    for(long unsigned int i = 0; i < exercOrd.size() - 1; i++){
+        trocado = false;
+        for(long unsigned int j = 0; j < exercOrd.size() - i - 1; j++){
+
+            if(exercOrd[j]->getVitorias() < exercOrd[j+1]->getVitorias()){
+                exercitoTemp = exercOrd[j];
+                exercOrd[j] = exercOrd[j+1];
+                exercOrd[j+1] = exercitoTemp;
+                trocado = true;
+            }else if(exercOrd[j]->getVitorias() == exercOrd[j+1]->getVitorias()){
+                if(exercOrd[j]->Attacktotal() < exercOrd[j+1]->Attacktotal()){
+                    exercitoTemp = exercOrd[j];
+                    exercOrd[j] = exercOrd[j+1];
+                    exercOrd[j+1] = exercitoTemp;
+                    trocado = true;
+                }
+            }
+        }
+        if (!trocado) break;
+    }
+
+    cout << "\n────────────────█████████───────────────" ;
+    cout << "\n──────────────█████████████─────────────"  ;
+    cout << "\n───────────███████████████████──────────"  ;
+    cout << "\n────────────────────────────────────────"  ;
+    cout << "\n────────████████████████████████────────"  ;
+    cout << "\n────────████████████████████████────────"  ;
+    cout << "\n────────────────────────────────────────"  ;
+    cout << "\n█████████─████████████████████─█████████"  ;
+    cout << "\n█████████─████████████████████─█████████"  ;
+    cout << "\n███───────████████────████████───────███"  ;
+    cout << "\n███───────██████───██───██████───────███"  ;
+    cout << "\n─███──────█████──████────█████──────███─"  ;
+    cout << "\n──███─────████─────██─────████─────███──"  ;
+    cout << "\n───███────████─────██─────████────███───"  ;
+    cout << "\n────███───█████────██────█████───███────"  ;
+    cout << "\n─────███──█████────██────█████──███─────"  ;
+    cout << "\n──────███─███████──────███████─███──────"  ;
+    cout << "\n───────██─████████████████████─██───────"  ;
+    cout << "\n────────█─████████████████████─█────────"  ;
+    cout << "\n────────────────────────────────────────"  ;
+    cout << "\n──────────████████████████████──────────"  ;
+    cout << "\n───────────██████████████████───────────"  ;
+    cout << "\n─────────────██████████████─────────────"  ;
+    cout << "\n───────────────███████████──────────────"  ;
+    cout << "\n────────────────────────────────────────"  ;
+    cout << "\n────────────────█████████───────────────"  ;
+    cout << "\n──────────────█████████████─────────────"  ;
+
+    cout << "\n\nTabela de posições dos Exercitos:" << endl;
+
+    for(long unsigned int k = 0; k < exercOrd.size(); k++){
+
+        cout << k+1 <<"º Lugar exercito: " << exercOrd[k]->getNome() << endl;
+        cout << "Vitorias: " << exercOrd[k]->getVitorias() << endl;
+        cout << "Derrotas: " << exercOrd[k]->getDerrotas() << endl;
+        cout << "Empates:  " << exercOrd[k]->getEmpates() << endl;
+    }
+
 
     cout << "Digite qualquer coisa e aperte ENTER para continuar" << endl;
     cin >> opcao;
@@ -100,48 +168,78 @@ void Campanha::gerarTabelaDePosicoes(){
 }
 
 
-// void Campanha::mostrarUnidadeMaisDestrutiva(){
+void Campanha::mostrarUnidadeMaisDestrutiva(){
+    string opcao;
+    Unidade *unidadeMaisDestrutiva = NULL;
+    vector<Unidade*> unidades;
+    string nome;
+    int exercitoDono;
+
+    for(long unsigned int i = 0; i < exercitos.size(); i++){
+        unidades = exercitos[i]->getUnidades();
+        for(Unidade *p: unidades){
+            if(unidadeMaisDestrutiva == NULL){
+                unidadeMaisDestrutiva = p;
+                exercitoDono = i;
+            }else if(p->getDestruicoes() > unidadeMaisDestrutiva->getDestruicoes()){
+                unidadeMaisDestrutiva = p;
+                exercitoDono = i;
+            }
+        }
+    }
+    nome = exercitos[exercitoDono]->getNome();
+    limparTela2();
+    cout << "A unidade mais Destrutiva é do exercito: " << nome << endl;
+    unidadeMaisDestrutiva->imprimiDetalhes();
     
+    cout << "Digite qualquer coisa e aperte ENTER para continuar" << endl;
+    cin >> opcao;
 
-//     if(){
-
-
-        
-//     }
-
-// }
+}
 
 void Campanha::imprimeTodasUnidades(){
-    int opcao = -1;
+    long unsigned int opcao = -1;
+    string nome;
+    vector<Unidade*> unidades;
     string x;
     limparTela2(); 
     if(numBatalhas == 0){
-        cout << "Primeiro Execute uma batalha" << endl;
+        cout << "Primeiro Execute as batalhas" << endl;
     }else if(numBatalhas > 0){
+        
+        //Escolhe qual exercto vai ser utilizado
+        while(opcao <= 0 || opcao > exercitos.size()){
+            limparTela2();
+            cout << "Escolha o exercito que deseja ver as unidades: " << endl;
 
-
-        while(opcao < 1 || opcao > numBatalhas){
-
-            limparTela2(); 
-
-            cout << "Escolha a batalha que gostaria de imprimir as unidades" << endl;
-            cout << "Esolha uma batalha até o número " << numBatalhas << endl;
+            //faz o print dos exercitos disponiveis
+            for(long unsigned int i = 0; i < exercitos.size(); i++ ){   
+                cout << i+1 << " - " << exercitos[i]->getNome() << endl;
+            }
             cin >> opcao;
 
-            if(opcao < 1 || opcao > numBatalhas){
+            if(opcao <= 0 || opcao > exercitos.size()){
+                std::this_thread::sleep_for(std::chrono::milliseconds(2200));
                 limparTela2();
-                cout << "Número invalido" << endl;
-                std::this_thread::sleep_for(std::chrono::seconds(1));
+
+                cout << "Valor inválido!!!" << endl;
+
             }
         }
-        limparTela2();
-        batalhas[opcao - 1]->imprimeTodasUnidades();
+        opcao--;
+        
+        nome = exercitos[opcao]->getNome();
+        unidades = exercitos[opcao]->getUnidades();
+        cout << "Unidades do Exercito :" << nome << endl;
+        for(Unidade* p: unidades){
+            p->imprimiDetalhes();
+        }
+
     }
 
     cout << "\nDigite qualquer coisa e aperte ENTER para continuar" << endl;
     cin >> x;
-
-
+    limparTela2();
 }
 
 
@@ -149,54 +247,14 @@ void Campanha::setNumBatalhas(){
     numBatalhas++;
 }
 
-// void Campanha::setVDE(int vitoriasA, int vitoriasB, int derrotasA, int derrotasB, int empatesA, int empatesB){
-//     this->vitoriasA = vitoriasA;
-//     this->vitoriasB = vitoriasB;
-//     this->derrotasA = derrotasA;
-//     this->derrotasB = derrotasB;
-//     this->empatesA = empatesA;
-//     this->empatesB = empatesB;
+//nome do Exercito, vitorias, derrotas, empates
+void Campanha::newExercito(string nome, int vitorias, int derrotas, int empates, int i){
+    exercitos.push_back(new Exercito(nome, vitorias, derrotas, empates));
 
-// }
-
-// string Campanha::getNomeA(){
-
-//     return this->nomeA;
-
-// }
-// string Campanha::getNomeB(){
-
-//     return this->nomeB;
-
-// }
-
-// int Campanha::getVitoriasA(){
-//     this->vitoriasA;
-
-// }
-
-// int Campanha::getVitoriasB(){
-//    this->vitoriasB;
-
-// }
-
-// int Campanha::getDerrotasA(){
-//    this->derrotasA;
-
-// }
-
-// int Campanha::getDerrotasB(){
-//    this->derrotasB;
-
-// }
-
-// int Campanha::getEmpatesA(){
-//     this->empatesA;
-    
-
-// }
-
-// int Campanha::getEmpatesB(){
-//     this->empatesB;
-// }
+    exercitos[i]->adicionarUnidade(new Infantaria());
+    exercitos[i]->adicionarUnidade(new Infantaria());
+    exercitos[i]->adicionarUnidade(new Veiculo());
+    exercitos[i]->adicionarUnidade(new Veiculo());
+    exercitos[i]->adicionarUnidade(new Aeronave());
+}
 

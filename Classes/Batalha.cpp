@@ -1,17 +1,13 @@
 #include "../Includes/Batalha.h"
 
-Batalha::Batalha(string nomeA, string nomeB) {
-    this->nomeA = nomeA;
-    this->nomeB = nomeB;
-    exercitoA = new Exercito(nomeA);
-    exercitoB = new Exercito(nomeB);
+Batalha::Batalha(Exercito* exercito1, Exercito* exercito2) {
+    exercitoA = exercito1;
+    exercitoB = exercito2;
     data = new Date();
-
 }
 
 Batalha::~Batalha(){
-    delete exercitoA;
-    delete exercitoB;
+    
     delete data;
 
 }
@@ -68,33 +64,57 @@ int Batalha::getEmpatesB(){
     return exercitoB->getEmpates();
 }
 
-
-double Batalha::ataqueExercitoA(string nomeA){
-    cout << "Simulação ataque do exército A "<< endl;
+double Batalha::ataqueExercitoA(){
+    string nomeA, nomeB;
+    //cout << "Simulação ataque do exército A "<< endl;
     double somaDePoder;
+    int quantidadeDestruicoes = 0;
+    vector<Unidade*> unidadesA;
+    vector<Unidade*> unidadesB;
 
-    exercitoA->adicionarUnidade(new Infantaria());
-    exercitoA->adicionarUnidade(new Infantaria());
-    exercitoA->adicionarUnidade(new Veiculo());
-    exercitoA->adicionarUnidade(new Veiculo());
-    exercitoA->adicionarUnidade(new Aeronave());
+    nomeA = exercitoA->getNome();
+    nomeB = exercitoB->getNome();
+
+    unidadesA = exercitoA->getUnidades();
+    unidadesB = exercitoB->getUnidades();
+
+    for(long unsigned int i = 0; i < unidadesA.size(); i++){
+    
+        if(unidadesA[i]->getPoderAtaque() > unidadesB[i]->getPoderAtaque()){
+            unidadesA[i]->somaDestruicao();
+            quantidadeDestruicoes++;  
+        }
+        
+    }
+   
+    exercitoA->setDestruicoes(quantidadeDestruicoes);
 
     somaDePoder = exercitoA->Attacktotal();
-    cout << "Poder de ataque total do Exercito " <<  nomeA << " é " << somaDePoder << endl;
     return somaDePoder;
 }
-double Batalha::ataqueExercitoB(string nomeB){
-    cout << "Simulação ataque do exército B " << endl;
+double Batalha::ataqueExercitoB(){
+    string nomeA, nomeB;
+    //cout << "Simulação ataque do exército B "<< endl;
     double somaDePoder;
+    int quantidadeDestruicoes = 0;
+    vector<Unidade*> unidadesA;
+    vector<Unidade*> unidadesB;
 
-    exercitoB->adicionarUnidade(new Infantaria());
-    exercitoB->adicionarUnidade(new Infantaria());
-    exercitoB->adicionarUnidade(new Veiculo());
-    exercitoB->adicionarUnidade(new Veiculo());
-    exercitoB->adicionarUnidade(new Aeronave());
+    nomeA = exercitoA->getNome();
+    nomeB = exercitoB->getNome();
+    unidadesA = exercitoA->getUnidades();
+    unidadesB = exercitoB->getUnidades();
+
+    for(long unsigned int i = 0; i < unidadesB.size(); i++){
+    
+        if(unidadesB[i]->getPoderAtaque() > unidadesA[i]->getPoderAtaque()){
+            unidadesB[i]->somaDestruicao();
+            quantidadeDestruicoes++;
+        }
+    }
+    exercitoB->setDestruicoes(quantidadeDestruicoes);
 
     somaDePoder = exercitoB->Attacktotal();
-    cout << "Poder de ataque total do Exercito " <<  nomeB << " é " << somaDePoder << endl;
     return somaDePoder;
 }
 

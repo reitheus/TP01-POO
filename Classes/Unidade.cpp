@@ -1,12 +1,20 @@
 #include "../Includes/Unidade.h"
 
-Unidade::Unidade(int poderAtaque, int Destruicoes) {
-    this->poderAtaque = poderAtaque;
-    this->Destruicoes = Destruicoes;
+Unidade::Unidade() {
+    destruicoes = 0;
+    
+}
+
+Unidade::~Unidade() {
+    
 }
 
 int Unidade::getPoderAtaque(){
     return poderAtaque;
+}
+
+int Unidade::getDestruicoes(){
+    return destruicoes;
 }
 
 void Unidade::imprimiDetalhes(){
@@ -16,6 +24,6 @@ void Unidade::imprimiDetalhes(){
 }
 
 
-int Unidade::somaDestruicao(){
-    return Destruicoes + 1;
+void Unidade::somaDestruicao(){
+    destruicoes += 1;
 }
