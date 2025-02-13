@@ -58,45 +58,51 @@ void Menu::salvarCampanha(Campanha* pCampanha){
     }
 }
 
-// Campanha* Menu::carregarCampanha(){
-//     string nomeCampanha;
-//     string nomeA, nomeB;
-//     string vitoriasA, derrotasA, empatesA;
-//     string vitoriasB, derrotasB, empatesB;
-//     int vA, dA, eA, vB, dB, eB;
-//     cout << "Digite o nome da Campanha salva" << endl;
-//     cout << "Exemplo: 'campanha1' " << endl;
-//     cout << "OBS: NÃO inclua a extensão " << endl;
-//     cin >> nomeCampanha;
-//     nomeCampanha = nomeCampanha + ".txt";
+Campanha* Menu::carregarCampanha(){
+    string nomeCampanha;
+    string quant, nome, vitorias, derrotas, empates;
+    int quantExercitos;
+    int  v, d, e;
+    pCampanha = new Campanha();
+    cout << "Digite o nome da Campanha salva" << endl;
+    cout << "Exemplo: 'campanha1' " << endl;
+    cout << "OBS: NÃO inclua a extensão " << endl;
+    cin >> nomeCampanha;
+    nomeCampanha = nomeCampanha + ".txt";
 
-//     ifstream arqv;
-//     arqv.open(nomeCampanha);//Abre o arquivo para leitura
-//     if(arqv.is_open()){
-//         getline(arqv, nomeA);
-//         getline(arqv, vitoriasA);
-//         getline(arqv, derrotasA);
-//         getline(arqv, empatesA);
-//         getline(arqv, nomeB);
-//         getline(arqv, vitoriasB);
-//         getline(arqv, derrotasB);
-//         getline(arqv, empatesB);
-//         vA = stoi(vitoriasA);
-//         dA = stoi(derrotasA);
-//         eA = stoi(empatesA);
-//         vB = stoi(vitoriasB);
-//         dB = stoi(derrotasB);
-//         eB = stoi(empatesB);
+    ifstream arqv;
+    arqv.open(nomeCampanha);//Abre o arquivo para leitura
+    if(arqv.is_open()){
 
-//     }else{
-//         cout << "Erro ao abrir arquivo";
-//     }
-//     pCampanha = new Campanha();
-//     //pCampanha->setVDE(vA, vB, dA, dB, eA, eB);
-//     return pCampanha;
-// }
+        getline(arqv, quant);
+        quantExercitos = stoi(quant);
 
-void Menu::campanhaAtual(Campanha* pCampanha){
+        for(int i = 0; i < quantExercitos; i++){
+            getline(arqv, nome);
+            getline(arqv, vitorias);
+            getline(arqv, derrotas);
+            getline(arqv, empates);
+            v = stoi(vitorias);
+            d = stoi(derrotas);
+            e = stoi(empates);
+            //inseri um novo exercito passando o nome, vitorias, derrotas, empates e o numero do exercito
+            pCampanha->newExercito(nome, v, d, e, i);
+
+        }
+
+        
+        
+        
+
+    }else{
+        cout << "Erro ao abrir arquivo";
+    }
+    
+    //pCampanha->setVDE(vA, vB, dA, dB, eA, eB);
+    return pCampanha;
+}
+
+void Menu::campanhaAtual(Campanha* pCampanha,bool existe){
     //std::this_thread::sleep_for(std::chrono::seconds(1));
     limparTela();
     string nome;
@@ -104,18 +110,21 @@ void Menu::campanhaAtual(Campanha* pCampanha){
     cout << "Campanha iniciada" << endl;
     std::this_thread::sleep_for(std::chrono::seconds(1));
     limparTela();
+
     int quantExercitos = -1;
-    while(quantExercitos <= 1 || quantExercitos > 10){
-        cout << "Digite a quantidade de Exercitos participantes" << endl;
-        cout << "É obrigatorio no minimo 2 exercitos" << endl;
-        cin >> quantExercitos;
-    }
-    int i = 0;
-    while(i < quantExercitos){
-        cout << "Digite o nome do Exercito " << i + 1 << endl;
-        cin >> nome;
-        pCampanha->newExercito(nome, 0, 0, 0, i);
-        i++;
+    if(existe == false){
+        while(quantExercitos <= 1 || quantExercitos > 10){
+            cout << "Digite a quantidade de Exercitos participantes" << endl;
+            cout << "É obrigatorio no minimo 2 exercitos" << endl;
+            cin >> quantExercitos;
+        }
+        int i = 0;
+        while(i < quantExercitos){
+            cout << "Digite o nome do Exercito " << i + 1 << endl;
+            cin >> nome;
+            pCampanha->newExercito(nome, 0, 0, 0, i);
+            i++;
+        }
     }
 
     int opcao = -1;//inicializa a opção
@@ -123,13 +132,16 @@ void Menu::campanhaAtual(Campanha* pCampanha){
         limparTela();
 
         cout << "Simulador de guerras" << endl;
-        cout << "Campanha em andamento" << endl;
-        cout << "Selecione uma das opções:" << endl;
-        cout << "1 - Simular batalhas" << endl;
-        cout << "2 - Gerar tabela de posições" << endl;
-        cout << "3 - Mostrar unidade mais destrutiva" << endl;
-        cout << "4 - Imprimir todas as unidades dos Exercitos" << endl;
-        cout << "5 - Voltar ao menu" << endl;
+        //cout << "Campanha em andamento" << endl;
+        //cout << "Selecione uma das opções:" << endl;
+        cout << "==============================================" << endl;
+        cout << "1 - Simular batalhas 🕹️" << endl;
+        cout << "2 - Gerar tabela de posições 📊" << endl;
+        cout << "3 - Mostrar unidade mais destrutiva 💀" << endl;
+        cout << "4 - Imprimir todas as unidades dos Exercitos 🎯" << endl;
+        cout << "5 - Voltar ao menu 🏠" << endl;
+        cout << "==============================================" << endl;
+
         cin >> opcao;
         switch (opcao){
             case 1:
@@ -138,14 +150,14 @@ void Menu::campanhaAtual(Campanha* pCampanha){
                 
                 pCampanha->simularBatalhas();
                 
-                std::this_thread::sleep_for(std::chrono::seconds(1));
+                //std::this_thread::sleep_for(std::chrono::seconds(1));
                 limparTela();
                 break;
             case 2:
                 limparTela();
                 cout << "Gerando tabela de posições" << endl;
                 std::this_thread::sleep_for(std::chrono::seconds(1));
-                pCampanha->gerarTabelaDePosicoes();
+                pCampanha->gerarTabelaDePosicoes(existe);
                 //std::this_thread::sleep_for(std::chrono::seconds(3));
                 break;
             case 3:
@@ -167,7 +179,7 @@ void Menu::campanhaAtual(Campanha* pCampanha){
                 break;
             default:
                 limparTela();
-                cout << "ERRO: Comando inválido" << endl;
+                cout << "❌ ERRO: Comando inválido ❌" << endl;
                 std::this_thread::sleep_for(std::chrono::seconds(1));
             break;
         }//fim switch
@@ -177,54 +189,60 @@ void Menu::campanhaAtual(Campanha* pCampanha){
 }
 
 void Menu::telaMenu(){
+    setlocale(LC_ALL, "");
     Menu menu;
     int opcao = -1;
     string nomeA, nomeB;
+    bool existe;
 
     limparTela();
     while(opcao != 3){
         limparTela();
-        cout << "Simulador de guerras" << endl;
-        cout << "Menu" << endl;
-        cout << "Selecione uma das opções:" << endl;
-        cout << "1 - Iniciar uma nova campanha" << endl;
-        cout << "2 - Continuar uma campanha" << endl;
-        cout << "3 - Sair do Menu" << endl;
+        //cout << " Simulador de guerras" << endl;
+        cout << "               Menu" << endl;
+        //cout << "Selecione uma das opções:" << endl;
+        cout << "============================================" << endl;
+        cout << "1 - Iniciar uma nova campanha 🕹️" << endl;
+        cout << "2 - Ler jogo salvo 📜" << endl;
+        cout << "3 - Sair do Menu 🏠" << endl;
+        cout << "============================================" << endl;
         cin >> opcao;
         switch (opcao){
             case 1:
+                existe = false;
                 limparTela();
                 cout << "Iniciando nova campanha ... Bom jogo ..." << endl;
-                std::this_thread::sleep_for(std::chrono::seconds(2));
+                std::this_thread::sleep_for(std::chrono::milliseconds(900));
                 limparTela();
                 
                 pCampanha = new Campanha();
 
-                menu.campanhaAtual(pCampanha);
-                std::this_thread::sleep_for(std::chrono::seconds(1));
+                menu.campanhaAtual(pCampanha, existe);
+                std::this_thread::sleep_for(std::chrono::milliseconds(500));
                 menu.salvarCampanha(pCampanha);
 
                 delete pCampanha;
 
                 break;
             case 2:
-            limparTela();
+                limparTela();
+                existe = true;
                 cout << "Carregando Campanha..." << endl;
-                std::this_thread::sleep_for(std::chrono::seconds(1));
-                //pCampanha = carregarCampanha();
+                std::this_thread::sleep_for(std::chrono::milliseconds(600));
+                pCampanha = carregarCampanha();
 
-                //menu.campanhaAtual(pCampanha);
-                //menu.salvarCampanha(pCampanha);
+                menu.campanhaAtual(pCampanha, existe);
+                menu.salvarCampanha(pCampanha);
                 delete pCampanha;
                 break;
             case 3:
                 limparTela();
-                cout << "Fechando Jogo..." << endl;
+                cout << "👋 Fechando Jogo..." << endl;
                 std::this_thread::sleep_for(std::chrono::seconds(1));
                 break;
             default:
                 limparTela();
-                cout << "ERRO: Comando inválido!!!" << endl;
+                cout << "❌ ERRO: Comando inválido!!! ❌" << endl;
                 std::this_thread::sleep_for(std::chrono::seconds(1));
                 opcao = -1;
                 break;

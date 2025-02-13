@@ -30,6 +30,7 @@ vector <Exercito*> Campanha::getExercitos(){
 }
 
 void Campanha::simularBatalhas(){
+    setlocale(LC_ALL, "");
     string nomeA, nomeB;
     string data;
     string opcao;
@@ -38,7 +39,7 @@ void Campanha::simularBatalhas(){
     int poderAtaqueA, poderAtaqueB;
 
     cout << numBatalhas + 1 << endl;
-    std::this_thread::sleep_for(std::chrono::seconds(2));
+    std::this_thread::sleep_for(std::chrono::seconds(1));
     //Adiciona uma nova batalha ao Vector de batalhas
 
     limparTela2();
@@ -49,10 +50,10 @@ void Campanha::simularBatalhas(){
                 
                 //Inicia a batalha e pedi a data que deseja inserir
                 cout<< "Batalha número: " << numBatalhas + 1 << endl;
-                cout << "Digite a data da batalha" << endl;
+                cout << "Digite a data da batalha ⏳" << endl;
                 cout << "Digite no formato DD/MM/AAAA" << endl;
-                //cin >> data;
-                data = "00/00/0000";
+                cin >> data;
+                //data = "00/00/0000";
                 
                 //busca os exercitos que vão batalhar no momento
                 exercitoA = exercitos[i];
@@ -94,13 +95,20 @@ void Campanha::simularBatalhas(){
 
 }
 
-void Campanha::gerarTabelaDePosicoes(){
+void Campanha::gerarTabelaDePosicoes(bool existe){
     string opcao;
     Exercito *exercitoTemp;
     vector <Exercito*> exercOrd(exercitos.size());//Exercito Ordenado
     copy(exercitos.begin(), exercitos.end(), exercOrd.begin());
 
     bool trocado;
+
+    if(numBatalhas <= 0 && existe == false){
+        cout << "Execute as batalhas antes de ver quem venceu a campanha!!!" << endl;
+        cout << "Digite qualquer coisa e aperte ENTER para continuar" << endl;
+        cin >> opcao;
+        return;
+    }
 
     for(long unsigned int i = 0; i < exercOrd.size() - 1; i++){
         trocado = false;
@@ -155,10 +163,20 @@ void Campanha::gerarTabelaDePosicoes(){
 
     for(long unsigned int k = 0; k < exercOrd.size(); k++){
 
-        cout << k+1 <<"º Lugar exercito: " << exercOrd[k]->getNome() << endl;
-        cout << "Vitorias: " << exercOrd[k]->getVitorias() << endl;
-        cout << "Derrotas: " << exercOrd[k]->getDerrotas() << endl;
-        cout << "Empates:  " << exercOrd[k]->getEmpates() << endl;
+        if(k == 0){
+            
+            cout << k+1 <<"º Lugar exercito: 🏆 " << exercOrd[k]->getNome() << " 🏆" << endl;
+            cout << "Vitorias: " << exercOrd[k]->getVitorias() << endl;
+            cout << "Derrotas: " << exercOrd[k]->getDerrotas() << endl;
+            cout << "Empates:  " << exercOrd[k]->getEmpates() << endl;
+
+        }else{
+
+            cout << k+1 <<"º Lugar exercito: " << exercOrd[k]->getNome() << endl;
+            cout << "Vitorias: " << exercOrd[k]->getVitorias() << endl;
+            cout << "Derrotas: " << exercOrd[k]->getDerrotas() << endl;
+            cout << "Empates:  " << exercOrd[k]->getEmpates() << endl;
+        }
     }
 
 
@@ -189,7 +207,7 @@ void Campanha::mostrarUnidadeMaisDestrutiva(){
     }
     nome = exercitos[exercitoDono]->getNome();
     limparTela2();
-    cout << "A unidade mais Destrutiva é do exercito: " << nome << endl;
+    cout << "A unidade mais Destrutiva é do exercito: 💀 " << nome<< " 💀" << endl;
     unidadeMaisDestrutiva->imprimiDetalhes();
     
     cout << "Digite qualquer coisa e aperte ENTER para continuar" << endl;
@@ -247,7 +265,8 @@ void Campanha::setNumBatalhas(){
     numBatalhas++;
 }
 
-//nome do Exercito, vitorias, derrotas, empates
+//metodo que adiciona um novo exercito na campanha
+//nome do Exercito, vitorias, derrotas, empates, número do exercito
 void Campanha::newExercito(string nome, int vitorias, int derrotas, int empates, int i){
     exercitos.push_back(new Exercito(nome, vitorias, derrotas, empates));
 
