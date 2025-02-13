@@ -7,6 +7,7 @@
 #include <charconv>
 #include <chrono>
 #include <thread>
+#include <locale>
 //#include <format>
 #include <vector>
 // #include "../Includes/Unidade.h"
@@ -36,7 +37,7 @@ public:
     static void limparTela2(); 
     vector <Exercito*> getExercitos();
     void simularBatalhas();
-    void gerarTabelaDePosicoes();
+    void gerarTabelaDePosicoes(bool);
     void mostrarUnidadeMaisDestrutiva();
     void imprimeTodasUnidades();
     

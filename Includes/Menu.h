@@ -7,6 +7,7 @@
 #include <charconv>
 //#include <format>
 #include <vector>
+#include <locale>
 #include <fstream>
 #include <chrono>
 #include <thread>
@@ -27,7 +28,7 @@ public:
     Campanha* carregarCampanha();
     void salvarCampanha(Campanha*);
    
-    void campanhaAtual(Campanha*);
+    void campanhaAtual(Campanha*, bool);
 
 
     //void setAlgumaCoisa();
