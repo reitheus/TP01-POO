@@ -27,15 +27,15 @@ class Batalha
     string nomeA, nomeB;
 	int resultadoA, resultadoB;
 public:
-    Batalha(string , string );
+    Batalha(Exercito* , Exercito* );
     ~Batalha( );
 
     void formataData(string );
 
     void imprimeTodasUnidades();
 
-    double ataqueExercitoA(string );
-    double ataqueExercitoB(string );
+    double ataqueExercitoA( );
+    double ataqueExercitoB( );
     string getResultado(string nomeA, string nomeB);
 
     void setVitoriasDoExercitoA();

@@ -11,13 +11,17 @@ using namespace std;
 class Unidade
 {
 protected: 
-    int poderAtaque, Destruicoes;
+    double poderAtaque;
+    int destruicoes;
 
 public:
-    Unidade(int poderAtaque = 0, int Destruicoes = 0); 
+    Unidade();
+    virtual ~Unidade(); 
     virtual int getPoderAtaque();
+    int getDestruicoes();
     virtual void imprimiDetalhes();
-    int somaDestruicao();
+    void somaDestruicao();
+
 };
 
 #endif//Unidade.h

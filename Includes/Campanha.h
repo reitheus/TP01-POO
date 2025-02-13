@@ -18,21 +18,23 @@ using namespace std;
 class Campanha
 {
     vector <Batalha*> batalhas;
-    string nomeA, nomeB;
+    vector <Exercito*> exercitos;
+    
     // Unidade* unidadeMaisDestrutivaA;
     // Unidade* unidadeMaisDestrutivaB;
     
 
-    int vitoriasA , vitoriasB ;
-    int derrotasA , derrotasB ;
-    int empatesA , empatesB ;
+    // int vitoriasA , vitoriasB ;
+    // int derrotasA , derrotasB ;
+    // int empatesA , empatesB ;
     int numBatalhas;
     
 	
 public:
-    Campanha(string nomeA, string nomeB);
-    ~Campanha( );
+    Campanha();
+    ~Campanha();
     static void limparTela2(); 
+    vector <Exercito*> getExercitos();
     void simularBatalhas();
     void gerarTabelaDePosicoes();
     void mostrarUnidadeMaisDestrutiva();
@@ -40,19 +42,8 @@ public:
     
     void setNumBatalhas();
 
-    void setVDE(int, int, int, int, int, int);
-
-    string getNomeA();
-    string getNomeB();
-
-    int getVitoriasA();
-    int getVitoriasB();
-
-    int getDerrotasA();
-    int getDerrotasB();
-
-    int getEmpatesA();
-    int getEmpatesB();
+    //nome do Exercito, vitorias, derrotas, empates
+    void newExercito(string, int, int , int, int );
 
     //void setAlgumaCoisa();
     //double getAlgumaCoisa();
